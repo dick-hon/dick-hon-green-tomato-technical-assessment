@@ -1,5 +1,7 @@
 import {Container, Paper, ScrollArea, Table, Text} from "@mantine/core";
+import LoadingTable from "components/loadingTable";
 import dayjs from "dayjs";
+import {useMemo} from "react";
 import {useAsync} from "react-use";
 import {store} from "stores";
 
@@ -9,7 +11,10 @@ export default function UserListView() {
 	}, [store]);
 
 	const users = state.value?.data || [];
-	console.debug("users: ", users);
+
+	const isLoading = useMemo(() => state.loading, [state]);
+
+	if (isLoading) return <LoadingTable numberOfRows={10} />;
 
 	return (
 		<Container size="xl" px="xl">
