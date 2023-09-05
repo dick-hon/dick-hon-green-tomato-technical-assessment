@@ -1,7 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
+import serverlessExpress from '@vendia/serverless-express';
+import * as express from 'express';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -9,6 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
   app.useGlobalPipes(new ValidationPipe());
   await app.init();
-  return server;
+  return serverlessExpress({ app: server });
 }
 module.exports = bootstrap();
