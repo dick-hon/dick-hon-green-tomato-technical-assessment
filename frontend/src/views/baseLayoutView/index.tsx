@@ -3,8 +3,10 @@ import {
 	Burger,
 	Group,
 	Header,
+	Image,
 	MediaQuery,
 	Navbar,
+	Text,
 	UnstyledButton,
 	useMantineColorScheme,
 } from "@mantine/core";
@@ -116,8 +118,19 @@ export default function BaseLayoutView() {
 							px={20}
 							position="apart"
 						>
-							<UnstyledButton onClick={() => navigate("/")}>
-								User Registration System
+							<UnstyledButton>
+								<Group>
+									<Image src="/icon.png" height={40} width={40} fit="contain" />
+									<Text
+										sx={(theme) => ({
+											fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+											fontWeight: 600,
+											fontSize: 24,
+										})}
+									>
+										User form app
+									</Text>
+								</Group>
 							</UnstyledButton>
 							<ColorSchemeButton
 								onClick={() => toggleColorScheme()}

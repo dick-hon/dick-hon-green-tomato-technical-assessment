@@ -50,10 +50,8 @@ export default class AxiosAPI implements API {
 				headers: {...this.headers},
 				params: options?.query,
 			});
-			console.debug("done in post");
 			return this.parseResponse<T>(response);
 		} catch (err) {
-			console.debug("error in axios: ", err);
 			return this.parseError<T>(err as AxiosError);
 		}
 	}
