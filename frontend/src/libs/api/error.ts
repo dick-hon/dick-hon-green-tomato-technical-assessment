@@ -6,15 +6,15 @@ export class NotFoundError extends Error {
 }
 
 export class ClientError extends Error {
-	constructor() {
-		super("Client error");
+	constructor(message?: string) {
+		super(message || "Client error");
 		this.name = ClientError.name;
 	}
 }
 
 export class AuthenticationError extends Error {
-	constructor() {
-		super("Authentication failed");
+	constructor(message?: string) {
+		super(message || "Authentication failed");
 		this.name = AuthenticationError.name;
 	}
 }

@@ -2,7 +2,7 @@ import {Button, Group, Text, TextInput, createStyles, rem} from "@mantine/core";
 import {DatePickerInput} from "@mantine/dates";
 import {useForm, yupResolver} from "@mantine/form";
 import {notifications} from "@mantine/notifications";
-import dayjs from "dayjs";
+import {ClientError} from "libs/api/error";
 import {useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAsyncFn} from "react-use";
@@ -119,14 +119,7 @@ export default function RegisterView() {
 
 		try {
 			const response = await createUser(payload);
-
 			if (!response.success) throw response.error;
-
-			console.debug(
-				"response: ",
-				dayjs(response.data?.dob).format("dddd, MMMM D, YYYY h:mm A"),
-			);
-
 			notifications.update({
 				id: "api-call",
 				color: "teal",
@@ -136,13 +129,15 @@ export default function RegisterView() {
 			});
 			navigate(Path.SubmittedForms);
 		} catch (error) {
-			notifications.update({
-				id: "api-call",
-				title: "Bad Request",
-				message: "Something went wrong. Please try again later.",
-				color: "red",
-				icon: <X />,
-			});
+			if (error instanceof ClientError) {
+				notifications.update({
+					id: "api-call",
+					title: "Bad Request",
+					message: error.message,
+					color: "red",
+					icon: <X />,
+				});
+			}
 		}
 	};
 

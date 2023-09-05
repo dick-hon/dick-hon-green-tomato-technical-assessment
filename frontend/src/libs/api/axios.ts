@@ -7,6 +7,12 @@ import {
 	NotFoundError,
 } from "./error";
 
+type ResponseError = {
+	error: string;
+	message: string;
+	statusCode: number;
+};
+
 export default class AxiosAPI implements API {
 	private readonly instance: AxiosInstance;
 	private headers: Record<string, string> | null;
@@ -90,13 +96,17 @@ export default class AxiosAPI implements API {
 		if (!error.response) {
 			throw error;
 		}
+		const errorResponseData = error.response.data as ResponseError;
 		if (error.response?.status === 400) {
-			return Response.makeError(error.response.status, new ClientError());
+			return Response.makeError(
+				error.response.status,
+				new ClientError(errorResponseData.message),
+			);
 		}
 		if (error.response?.status === 401) {
 			return Response.makeError(
 				error.response.status,
-				new AuthenticationError(),
+				new AuthenticationError(errorResponseData.message),
 			);
 		}
 		if (error.response?.status === 404) {
