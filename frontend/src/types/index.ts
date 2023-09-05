@@ -15,3 +15,8 @@ export interface IUser {
 }
 
 export type User = InferType<typeof userSchema>;
+
+export type UserDTO = Pick<User, "name" | "email" | "phoneNumber"> & {
+	id: string;
+	dob: string;
+};
