@@ -5,6 +5,7 @@ import {
 	Header,
 	MediaQuery,
 	Navbar,
+	UnstyledButton,
 	useMantineColorScheme,
 } from "@mantine/core";
 import ColorSchemeButton from "components/baseLayout/ColorSchemeButton";
@@ -115,8 +116,9 @@ export default function BaseLayoutView() {
 							px={20}
 							position="apart"
 						>
-							<span onClick={() => navigate("/")}>Logo</span>
-							{/* <Logo onClick={() => navigate("/")} logo={logo} /> */}
+							<UnstyledButton onClick={() => navigate("/")}>
+								User Registration System
+							</UnstyledButton>
 							<ColorSchemeButton
 								onClick={() => toggleColorScheme()}
 								colorScheme={colorScheme}
