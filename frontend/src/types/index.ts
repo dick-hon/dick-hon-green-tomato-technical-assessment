@@ -1,3 +1,6 @@
+import {userSchema} from "schema";
+import {InferType} from "yup";
+
 interface ILink {
 	icon: React.ReactNode;
 	color: string;
@@ -10,3 +13,5 @@ export interface IUser {
 	name: string;
 	email: string;
 }
+
+export type User = InferType<typeof userSchema>;
