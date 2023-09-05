@@ -20,8 +20,8 @@ export default function LoadingTable({numberOfRows = NUMBER_OF_ROWS}: Props) {
 			<Skeleton height={30} mb={20} radius="xl" width="40%" />
 
 			<Stack>
-				{[...Array(numberOfRows)].map((_) => {
-					return <Skeleton height={30} radius="xl" />;
+				{[...Array(numberOfRows)].map((_, index) => {
+					return <Skeleton key={index} height={30} radius="xl" />;
 				})}
 			</Stack>
 		</Paper>
