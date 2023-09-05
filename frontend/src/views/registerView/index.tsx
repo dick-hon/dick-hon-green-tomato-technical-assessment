@@ -3,6 +3,7 @@ import {DatePickerInput} from "@mantine/dates";
 import {useForm, yupResolver} from "@mantine/form";
 import {notifications} from "@mantine/notifications";
 import dayjs from "dayjs";
+import {useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAsyncFn} from "react-use";
 import {userSchema} from "schema";
@@ -85,7 +86,6 @@ export default function RegisterView() {
 	const {classes} = useStyles();
 	const navigate = useNavigate();
 
-	// TODO: add loading state
 	const [state, createUser] = useAsyncFn(
 		async (payload: User) => {
 			return store.user.createOne({
@@ -146,7 +146,7 @@ export default function RegisterView() {
 		}
 	};
 
-	console.debug(dayjs(form.values.dob).format("dddd, MMMM D, YYYY h:mm A"));
+	const isLoading = useMemo(() => state.loading, [state]);
 
 	return (
 		<form
@@ -190,7 +190,7 @@ export default function RegisterView() {
 				/>
 
 				<Group position="right" mt="md">
-					<Button type="submit" className={classes.submit}>
+					<Button type="submit" className={classes.submit} loading={isLoading}>
 						Register
 					</Button>
 				</Group>
