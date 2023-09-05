@@ -87,9 +87,9 @@ export default function HomeView() {
 				<div className={classes.inner}>
 					<div className={classes.content}>
 						<Title className={classes.title}>
-							A <span className={classes.highlight}>User Form</span>
+							A <span className={classes.highlight}>User Registration</span>
 							<br />
-							Full-stack application
+							System
 						</Title>
 						<Text color="dimmed" mt="md">
 							For you to register a user.

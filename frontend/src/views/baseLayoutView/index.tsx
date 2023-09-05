@@ -128,7 +128,7 @@ export default function BaseLayoutView() {
 											fontSize: 24,
 										})}
 									>
-										User form app
+										URS
 									</Text>
 								</Group>
 							</UnstyledButton>
