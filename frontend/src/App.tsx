@@ -1,26 +1,32 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import {ColorSchemeProvider, MantineProvider} from "@mantine/core";
+import {Notifications} from "@mantine/notifications";
+import {COLOR_SCHEME_TYPE, useColorScheme} from "hooks/useColorScheme";
+import {BrowserRouter} from "react-router-dom";
+import Routes from "routes";
 
-function App() {
+export default function App() {
+	const {colorScheme, toggleColorScheme} = useColorScheme();
+
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
+		<BrowserRouter basename="/">
+			<ColorSchemeProvider
+				colorScheme={colorScheme}
+				toggleColorScheme={toggleColorScheme}
+			>
+				<MantineProvider
+					theme={{
+						colorScheme,
+						other: {
+							isDarkTheme: colorScheme === COLOR_SCHEME_TYPE.DARK,
+						},
+					}}
+					withGlobalStyles
+					withNormalizeCSS
 				>
-					Learn React
-				</a>
-			</header>
-		</div>
+					<Notifications />
+					<Routes />
+				</MantineProvider>
+			</ColorSchemeProvider>
+		</BrowserRouter>
 	);
 }
-
-export default App;
