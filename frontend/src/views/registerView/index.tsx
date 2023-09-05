@@ -1,7 +1,12 @@
 import {Button, Group, Text, TextInput, createStyles, rem} from "@mantine/core";
 import {DatePickerInput} from "@mantine/dates";
 import {useForm, yupResolver} from "@mantine/form";
+import {notifications} from "@mantine/notifications";
+import dayjs from "dayjs";
+import {useAsyncFn} from "react-use";
 import {userSchema} from "schema";
+import {store} from "stores";
+import {CircleCheck, X} from "tabler-icons-react";
 import {User} from "types";
 
 const useStyles = createStyles((theme) => {
@@ -78,6 +83,18 @@ const useStyles = createStyles((theme) => {
 export default function RegisterView() {
 	const {classes} = useStyles();
 
+	const [state, createUser] = useAsyncFn(
+		async (payload: User) => {
+			return store.user.createOne({
+				name: payload.name,
+				email: payload.email,
+				phoneNumber: payload.phoneNumber,
+				dob: payload.dob,
+			});
+		},
+		[store],
+	);
+
 	const form = useForm<User>({
 		validate: yupResolver(userSchema),
 		initialValues: {
@@ -88,9 +105,44 @@ export default function RegisterView() {
 		},
 	});
 
-	const onSubmit = (payload: User) => {
-		console.debug({payload});
+	const onSubmit = async (payload: User) => {
+		notifications.show({
+			id: "api-call",
+			loading: true,
+			title: "Loading your data",
+			message: "Registering a user... please wait.",
+			autoClose: false,
+		});
+
+		try {
+			const response = await createUser(payload);
+
+			if (!response.success) throw response.error;
+
+			console.debug(
+				"response: ",
+				dayjs(response.data?.dob).format("dddd, MMMM D, YYYY h:mm A"),
+			);
+
+			notifications.update({
+				id: "api-call",
+				color: "teal",
+				title: "Success to register a user",
+				message: "Congratulations! Register a user successfully.",
+				icon: <CircleCheck />,
+			});
+		} catch (error) {
+			notifications.update({
+				id: "api-call",
+				title: "Bad Request",
+				message: "Something went wrong. Please try again later.",
+				color: "red",
+				icon: <X />,
+			});
+		}
 	};
+
+	console.debug(dayjs(form.values.dob).format("dddd, MMMM D, YYYY h:mm A"));
 
 	return (
 		<form
