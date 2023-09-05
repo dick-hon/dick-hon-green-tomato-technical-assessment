@@ -1,59 +1,16 @@
 import {Container, Paper, ScrollArea, Table, Text} from "@mantine/core";
-import {UserDTO} from "types";
-
-const MOCKED_USERS: UserDTO[] = [
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-	{
-		id: "1",
-		name: "Dick",
-		email: "dick@gmail.com",
-		dob: "06-09-2023",
-		phoneNumber: "123",
-	},
-];
+import dayjs from "dayjs";
+import {useAsync} from "react-use";
+import {store} from "stores";
 
 export default function UserListView() {
+	const state = useAsync(async () => {
+		return store.user.getMany();
+	}, [store]);
+
+	const users = state.value?.data || [];
+	console.debug("users: ", users);
+
 	return (
 		<Container size="xl" px="xl">
 			<Paper
@@ -75,7 +32,7 @@ export default function UserListView() {
 					>
 						<thead>
 							<tr>
-								<th>Id</th>
+								<th>#</th>
 								<th>Name</th>
 								<th>Email</th>
 								<th>Date of Birth</th>
@@ -83,27 +40,25 @@ export default function UserListView() {
 							</tr>
 						</thead>
 						<tbody>
-							{MOCKED_USERS.map(
-								({id, name, email, dob, phoneNumber}, index) => (
-									<tr key={id}>
-										<td>
-											<Text size="sm">{id}</Text>
-										</td>
-										<td>
-											<Text size="sm">{name}</Text>
-										</td>
-										<td>
-											<Text size="sm">{email}</Text>
-										</td>
-										<td>
-											<Text size="sm">{dob}</Text>
-										</td>
-										<td>
-											<Text size="sm">{phoneNumber}</Text>
-										</td>
-									</tr>
-								),
-							)}
+							{users.map(({name, email, dob, phoneNumber}, index) => (
+								<tr key={index}>
+									<td>
+										<Text size="sm">{index + 1}</Text>
+									</td>
+									<td>
+										<Text size="sm">{name}</Text>
+									</td>
+									<td>
+										<Text size="sm">{email}</Text>
+									</td>
+									<td>
+										<Text size="sm">{dayjs(dob).format("DD-MM-YYYY")}</Text>
+									</td>
+									<td>
+										<Text size="sm">{phoneNumber}</Text>
+									</td>
+								</tr>
+							))}
 						</tbody>
 					</Table>
 				</ScrollArea>

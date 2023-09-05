@@ -83,6 +83,7 @@ const useStyles = createStyles((theme) => {
 export default function RegisterView() {
 	const {classes} = useStyles();
 
+	// TODO: add loading state
 	const [state, createUser] = useAsyncFn(
 		async (payload: User) => {
 			return store.user.createOne({
