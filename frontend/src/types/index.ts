@@ -20,3 +20,9 @@ export type UserDTO = Pick<User, "name" | "email" | "phoneNumber"> & {
 	id: string;
 	dob: string;
 };
+
+export enum Path {
+	Home = "/",
+	UserRegistration = "/register",
+	SubmittedForms = "/forms",
+}

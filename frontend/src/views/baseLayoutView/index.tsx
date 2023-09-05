@@ -14,26 +14,26 @@ import {COLOR_SCHEME_TYPE} from "hooks/useColorScheme";
 import {useCallback, useMemo, useState} from "react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {CalendarTime, Home} from "tabler-icons-react";
-import {ILinks, IUser} from "types";
+import {ILinks, IUser, Path} from "types";
 
 const LINKS: ILinks = [
 	{
 		icon: <Home size={16} />,
 		color: "teal",
 		label: "Home",
-		href: "/",
+		href: Path.Home,
 	},
 	{
 		icon: <CalendarTime size={16} />,
 		color: "blue",
 		label: "User Registration",
-		href: "/register",
+		href: Path.UserRegistration,
 	},
 	{
 		icon: <CalendarTime size={16} />,
 		color: "grape",
 		label: "Submitted Forms",
-		href: "/forms",
+		href: Path.SubmittedForms,
 	},
 ];
 

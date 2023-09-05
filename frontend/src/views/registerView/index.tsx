@@ -3,11 +3,12 @@ import {DatePickerInput} from "@mantine/dates";
 import {useForm, yupResolver} from "@mantine/form";
 import {notifications} from "@mantine/notifications";
 import dayjs from "dayjs";
+import {useNavigate} from "react-router-dom";
 import {useAsyncFn} from "react-use";
 import {userSchema} from "schema";
 import {store} from "stores";
 import {CircleCheck, X} from "tabler-icons-react";
-import {User} from "types";
+import {Path, User} from "types";
 
 const useStyles = createStyles((theme) => {
 	const BREAKPOINT = theme.fn.smallerThan("sm");
@@ -82,6 +83,7 @@ const useStyles = createStyles((theme) => {
 
 export default function RegisterView() {
 	const {classes} = useStyles();
+	const navigate = useNavigate();
 
 	// TODO: add loading state
 	const [state, createUser] = useAsyncFn(
@@ -132,6 +134,7 @@ export default function RegisterView() {
 				message: "Congratulations! Register a user successfully.",
 				icon: <CircleCheck />,
 			});
+			navigate(Path.SubmittedForms);
 		} catch (error) {
 			notifications.update({
 				id: "api-call",
