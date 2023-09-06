@@ -88,16 +88,15 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a API Key from necktie
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/dick-hon/dick-hon-green-tomato-technical-assessment.git
    ```
-3. Install NPM packages under `/backend` and `/frontend` respoectively
+2. Install NPM packages under `/backend` and `/frontend` respoectively
    ```sh
    yarn
    ```
-4. Enter your credentials in `.env` under `/backend` and `/frontend` respectively.
+3. Enter your credentials in `.env` under `/backend` and `/frontend` respectively.
 
    - Backend
 
@@ -110,7 +109,7 @@ This is an example of how to list things you need to use the software and how to
      REACT_APP_API_URL={API_ENDPOINT_URL}
      ```
 
-5. Start the frontend and backend server respectively
+4. Start the frontend and backend server respectively
    - Frontend
      ```sh
      yarn start
@@ -119,8 +118,8 @@ This is an example of how to list things you need to use the software and how to
      ```sh
      yarn start
      ```
-6. Visit http://localhost:3000 for frontend development
-7. Visit http://localhost:4000 for backend developement
+5. Visit http://localhost:3000 for frontend development
+6. Visit http://localhost:4000 for backend developement
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
