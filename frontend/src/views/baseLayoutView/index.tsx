@@ -118,7 +118,7 @@ export default function BaseLayoutView() {
 							px={20}
 							position="apart"
 						>
-							<UnstyledButton>
+							<UnstyledButton onClick={() => navigate(Path.Home)}>
 								<Group>
 									<Image src="/icon.png" height={40} width={40} fit="contain" />
 									<Text
