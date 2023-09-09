@@ -180,7 +180,7 @@ export default function RegisterView() {
 				<TextInput
 					mt="md"
 					label="Phone number"
-					placeholder="67779898"
+					placeholder="+85266778899"
 					{...form.getInputProps("phoneNumber")}
 				/>
 
