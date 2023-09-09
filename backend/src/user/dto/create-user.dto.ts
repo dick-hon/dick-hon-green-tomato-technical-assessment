@@ -1,4 +1,9 @@
-import { IsDateString, IsEmail, IsNotEmpty } from 'class-validator';
+import {
+  IsDateString,
+  IsEmail,
+  IsNotEmpty,
+  IsPhoneNumber,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -13,5 +18,6 @@ export class CreateUserDto {
   readonly dob: Date;
 
   @IsNotEmpty()
+  @IsPhoneNumber(null)
   readonly phoneNumber: string;
 }
